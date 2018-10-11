@@ -1,0 +1,14 @@
+
+.MMM-OpelStatuses table {
+  border-collapse: collapse;
+}
+
+.MMM-OpelStatuses caption {
+  text-align: center;
+  opacity: 0.5;
+}
+
+.MMM-OpelStatuses table td, .MMM-OpelStatuses table th {
+  border: 1px solid #666;
+  padding: 2px 3px;
+}

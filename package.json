@@ -1,0 +1,29 @@
+{
+  "name": "MMM-OpelStatuses",
+  "version": "0.0.0",
+  "description": "Status of Your Opel production.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/santanachia/MMM-OpelStatuses.git"
+  },
+  "keywords": [
+    "MagicMirror",
+    "Opel",
+    "Status"
+  ],
+  "author": {
+    "name": "Marcin Bielecki",
+    "email": "santanachia@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/santanachia/MMM-OpelStatuses/issues"
+  },
+  "homepage": "https://github.com/santanachia/MMM-OpelStatuses#readme",
+  "dependencies": {
+    "request": "2.*"
+  },
+  "devDependencies": {
+    "request": "latest"
+  }
+}
