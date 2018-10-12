@@ -32,6 +32,12 @@ module.exports = NodeHelper.create({
               return that.sendSocketNotification('ERR', { type: 'request error', msg: data.errorMsg });
             }
 
+            details.make = data.item.vehicleDetail.make;
+            details.modelDescription = data.item.vehicleDetail.modelDescription;
+            details.modelYearSuffix = data.item.vehicleDetail.modelYearSuffix;
+            details.vin = data.item.vehicleDetail.vin;
+            details.colour = data.item.vehicleDetail.colour;
+
             if (!details.statuses.length || data.item.vehicleDetail.lastVehicleEvent !== details.statuses[details.statuses.length - 1].lastVehicleEvent) {
               details.statuses.push({
                 lastVehicleEvent: data.item.vehicleDetail.lastVehicleEvent,
