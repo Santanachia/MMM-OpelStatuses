@@ -40,7 +40,9 @@ Module.register("MMM-OpelStatuses", {
   },
   html: {
     table: '<table class="small"><caption align="bottom" class="xsmall">{0}</caption><thead><tr><th>Etap</th><th colspan="2">Status</th><th>data zmiany<br>statusu</th><th>prognozowana<br>data dostawy</th></tr></thead><tbody>{1}</tbody></table>',
-    row: "<tr><td{0}>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td><td>{5}</td></tr>",
+    rowL: '<tr><td rowspan="{0}">{1}</td><td>{2}</td><td>{3}</td><td>{4}</td><td>{5}</td></tr>',
+    row: "<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td></tr>",
+    rowS: "<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td></tr>",
   },
   getScripts: function() {
     return [
@@ -66,16 +68,35 @@ Module.register("MMM-OpelStatuses", {
       var rows = [];
       var stages = that.fillStages(that.details);
 
-      for (var i in stages) {
-        for (var j in stages[i].statuses) {
-          rows.push(this.html.row.format(
-            0 === j && stages[i].statuses.length > 0 ? ' rowspan="' + stages[i].statuses.length + '"' : '',
-            stages[i].stage,
-            stages[i].statuses[j].status,
-            stages[i].statuses[j].description,
-            stages[i].statuses[j].eventCodeUpdateTimestamp,
-            stages[i].statuses[j].estimatedDeliveryDateTime,
-          ));
+      for (let i in stages) {
+        for (let j in stages[i].statuses) {
+          if (0 == j && stages[i].statuses.length > 1) {
+            rows += this.html.rowL.format(
+              stages[i].statuses.length,
+              stages[i].stage,
+              stages[i].statuses[j].status,
+              stages[i].statuses[j].description,
+              stages[i].statuses[j].eventCodeUpdateTimestamp,
+              stages[i].statuses[j].estimatedDeliveryDateTime,
+            );
+          }
+          else if (0 != j && stages[i].statuses.length > 1) {
+            rows += this.html.rowS.format(
+              stages[i].statuses[j].status,
+              stages[i].statuses[j].description,
+              stages[i].statuses[j].eventCodeUpdateTimestamp,
+              stages[i].statuses[j].estimatedDeliveryDateTime,
+            );
+          }
+          else {
+            rows += this.html.row.format(
+              stages[i].stage,
+              stages[i].statuses[j].status,
+              stages[i].statuses[j].description,
+              stages[i].statuses[j].eventCodeUpdateTimestamp,
+              stages[i].statuses[j].estimatedDeliveryDateTime,
+            );
+          }
         }
       }
       
@@ -104,7 +125,7 @@ Module.register("MMM-OpelStatuses", {
       { stage: 'Sprzedaż', statuses: [] }
     ];
     
-    for(var i in details.statuses) {
+    for (let i in details.statuses) {
       switch (parseInt(details.statuses[i].lastVehicleEvent)) {
         case 20:
           statuses[0].statuses.push({ status: 20, description: 'Przyjęcie zamówienia', eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') });

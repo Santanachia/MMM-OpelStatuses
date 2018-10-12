@@ -17,6 +17,7 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Content Include="history\.gitignore" />
     <Content Include="MMM-OpelStatuses.css" />
     <Content Include="package.json" />
     <Content Include="README.md" />
@@ -27,6 +28,7 @@
     <Content Include="translations\pl.json" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="history\" />
     <Folder Include="translations" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
