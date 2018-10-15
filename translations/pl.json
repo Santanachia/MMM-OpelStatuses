@@ -1,4 +1,27 @@
 {
   "NoID": "Wpisz JOBID lub VIN w pliku konfiguracyjnym",
-  "Loading": "Wczytywanie statusu ..."
+  "Loading": "Wczytywanie statusu ...",
+  "Stage": "Etap",
+  "st_date_change": "data zmiany<br />statusu",
+  "de_date_forecast": "prognozowana<br />data dostawy",
+  "ordering": "Zamawianie",
+  "set_prod": "Ustawianie produkcji",
+  "production": "Produkcja",
+  "sale": "Sprzedaż",
+  "Acceptance_of_the_order": "Przyjęcie zamówienia",
+  "Order_processing": "Przetwarzanie zamówienia",
+  "Setting_orders_for_production": "Ustawianie zamówienia do produkcji",
+  "Waiting_for_release_for_production": "Oczekiwanie na zwolnienie do produkcji",
+  "Release_for_production": "Zwolnienie do produkcji",
+  "Production_acceptance_by_the_factory": "Przyjęcie do produkcji przez fabrykę",
+  "Car_on_the_production_line": "Samochód na linii produkcyjnej",
+  "Car_made": "Samochód wyprodukowany",
+  "Car_handed_over_for_sale": "Samochód przekazany do sprzedarzy",
+  "The_car_left_the_factory_bays": "Samochód opuścił bamy fabryki",
+  "Car_in_the_central_distribution_warehouse": "Samochód na centralnym składzie dystrybucyjnym",
+  "Car_sent_to_Poland": "Samochód wysłany do Polski",
+  "A_car_in_a_warehouse_in_Poland": "Samochód na składzie w Polsce",
+  "Car_sent_to_the_dealer": "Samochód wysłany do dealera",
+  "The_car_reached_the_dealer": "Samochód dojechał do dealera",
+  "Sold_Car": "Samochód sprzedany"
 }

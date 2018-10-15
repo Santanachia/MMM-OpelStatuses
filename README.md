@@ -23,7 +23,7 @@ To run the module, you need to add the following data to your config.js file.
 }
 ```
 ### JOBID
-You can get if from Opel dealer who seller you a car.
+You can get if from Opel dealer who sell you a car.
 ```
   JOBID: '0012vhnn'
 ```
@@ -41,3 +41,4 @@ You may want to set the following options in the config section as well:
 | `VIN` | The of your car.<br><br>This (or JOBID) is **REQUIRED**. | 
 
 ### Known Issues
+No info message, when resmons was "The vehicle cannot be found."

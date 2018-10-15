@@ -1,4 +1,32 @@
 {
   "NoID": "Fill config with JOBID or VIN",
-  "Loading": "Loading status ..."
+  "Loading": "Loading status ...",
+  //table header:
+  "Stage": "Stage",
+  "Status": "Status",
+  "st_date_change": "status<br />change date",
+  "de_date_forecast": "forecasted<br />delivery date",
+  //stages:
+  "ordering": "Ordering",
+  "set_prod": "Setting the production",
+  "production": "Production",
+  "transport": "Transport",
+  "sale": "Sale",
+  //statuses:
+  "Acceptance_of_the_order": "Acceptance of the order",
+  "Order_processing": "Order processing",
+  "Setting_orders_for_production": "Setting orders for production",
+  "Waiting_for_release_for_production": "Waiting for release for production",
+  "Release_for_production": "Release for production",
+  "Production_acceptance_by_the_factory": "Production acceptance by the factory",
+  "Car_on_the_production_line": "Car on the production line",
+  "Car_made": "Car made",
+  "Car_handed_over_for_sale": "Car handed over for sale",
+  "The_car_left_the_factory_bays": "The car left the factory bays",
+  "Car_in_the_central_distribution_warehouse": "Car in the central distribution warehouse",
+  "Car_sent_to_Poland": "Car sent to Poland",
+  "A_car_in_a_warehouse_in_Poland": "A car in a warehouse in Poland",
+  "Car_sent_to_the_dealer": "Car sent to the dealer",
+  "The_car_reached_the_dealer": "The car reached the dealer",
+  "Sold_Car": "Sold Car"
 }

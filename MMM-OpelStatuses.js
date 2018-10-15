@@ -39,7 +39,8 @@ Module.register("MMM-OpelStatuses", {
     }
   },
   html: {
-    table: '<table class="small"><caption align="bottom" class="xsmall">{0}</caption><thead><tr><th>Etap</th><th colspan="2">Status</th><th>data zmiany<br>statusu</th><th>prognozowana<br>data dostawy</th></tr></thead><tbody>{1}</tbody></table>',
+    table: '<table class="small"><caption align="bottom" class="xsmall">{0}</caption><thead>{1}</thead><tbody>{2}</tbody></table>',
+    thead: '<tr><th>{0}</th><th colspan="2">{1}</th><th>{2}</th><th>{3}</th></tr>',
     rowL: '<tr><td rowspan="{0}">{1}</td><td>{2}</td><td>{3}</td><td>{4}</td><td>{5}</td></tr>',
     row: "<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td></tr>",
     rowS: "<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td></tr>",
@@ -104,6 +105,12 @@ Module.register("MMM-OpelStatuses", {
         '<span class="xsmall">' + this.details.make + ' ' + this.details.modelDescription + ' ' + this.details.modelYearSuffix + ' ' + this.details.colour + '</span>'
         + this.html.table.format(
           this.translate('Last check: ') + moment().format('YYYY-MM-DD H:mm') + this.errMsg,
+          this.html.thead.format(
+            this.translate('Stage'),
+            this.translate('Status'),
+            this.translate('st_date_change'),
+            this.translate('de_date_forecast'),
+          ),
           rows
         )
     }
@@ -118,66 +125,32 @@ Module.register("MMM-OpelStatuses", {
   fillStages: function (details) {
 
     var statuses = [
-      { stage: 'Zamawianie', statuses: [] },
-      { stage: 'Ustawianie produkcji', statuses: [] },
-      { stage: 'Produkcja', statuses: [] },
-      { stage: 'Transport', statuses: [] },
-      { stage: 'Sprzedaż', statuses: [] }
+      { stage: this.translate('ordering'), statuses: [] },
+      { stage: this.translate('set_prod'), statuses: [] },
+      { stage: this.translate('production'), statuses: [] },
+      { stage: this.translate('transport'), statuses: [] },
+      { stage: this.translate('sale'), statuses: [] }
     ];
     
     for (let i in details.statuses) {
       switch (parseInt(details.statuses[i].lastVehicleEvent)) {
-        case 20:
-          statuses[0].statuses.push({ status: 20, description: 'Przyjęcie zamówienia', eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') });
-          break;
-        case 21:
-          statuses[0].statuses.push({ status: 21, description: 'Przetwarzanie zamówienia', eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') });
-          break;
-        case 25:
-          statuses[1].statuses.push({ status: 25, description: 'Ustawianie zamówienia do produkcji', eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') });
-          break;
-        case 30:
-          statuses[1].statuses.push({ status: 30, description: 'Oczekiwanie na zwolnienie do produkcji', eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') });
-          break;
-        case 32:
-          statuses[1].statuses.push({ status: 32, description: 'Zwolnienie do produkcji', eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') });
-          break;
-        case 33:
-          statuses[2].statuses.push({ status: 33, description: 'Przyjęcie do produkcji przez fabrykę', eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') });
-          break;
-        case 35:
-          statuses[2].statuses.push({ status: 35, description: 'Samochód na linii produkcyjnej', eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') });
-          break;
-        case 38:
-          statuses[2].statuses.push({ status: 38, description: 'Samochód wyprodukowany', eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') });
-          break;
-        case 40:
-          statuses[2].statuses.push({ status: 40, description: 'Samochód przekazany do sprzedarzy', eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') });
-          break;
-        case 42:
-          statuses[3].statuses.push({ status: 42, description: 'Samochód opuścił bamy fabryki', eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') });
-          break;
-        case 43:
-          statuses[3].statuses.push({ status: 43, description: 'Samochód na centralnym składzie dystrybucyjnym', eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') });
-          break;
-        case 44:
-          statuses[3].statuses.push({ status: 44, description: 'Samochód wysłany do Polski', eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') });
-          break;
-        case 48:
-          statuses[3].statuses.push({ status: 48, description: 'Samochód na składzie w Polsce', eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') });
-          break;
-        case 49:
-          statuses[3].statuses.push({ status: 49, description: 'Samochód wysłany do dealera', eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') });
-          break;
-        case 58:
-          statuses[4].statuses.push({ status: 58, description: 'Samochód dojechał do dealera', eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') });
-          break;
-        case 60:
-          statuses[4].statuses.push({ status: 60, description: 'Samochód sprzedany', eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') });
-          break;
-        default:
-          console.log(details.statuses[i]);
-          break;
+        case 20: statuses[0].statuses.push({ status: 20, description: this.translate("Acceptance_of_the_order"),                   eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') }); break;
+        case 21: statuses[0].statuses.push({ status: 21, description: this.translate("Order_processing"),                          eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') }); break;
+        case 25: statuses[1].statuses.push({ status: 25, description: this.translate("Setting_orders_for_production"),             eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') }); break;
+        case 30: statuses[1].statuses.push({ status: 30, description: this.translate("Waiting_for_release_for_production"),        eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') }); break;
+        case 32: statuses[1].statuses.push({ status: 32, description: this.translate("Release_for_production"),                    eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') }); break;
+        case 33: statuses[2].statuses.push({ status: 33, description: this.translate("Production_acceptance_by_the_factory"),      eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') }); break;
+        case 35: statuses[2].statuses.push({ status: 35, description: this.translate("Car_on_the_production_line"),                eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') }); break;
+        case 38: statuses[2].statuses.push({ status: 38, description: this.translate("Car_made"),                                  eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') }); break;
+        case 40: statuses[2].statuses.push({ status: 40, description: this.translate("Car_handed_over_for_sale"),                  eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') }); break;
+        case 42: statuses[3].statuses.push({ status: 42, description: this.translate("The_car_left_the_factory_bays"),             eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') }); break;
+        case 43: statuses[3].statuses.push({ status: 43, description: this.translate("Car_in_the_central_distribution_warehouse"), eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') }); break;
+        case 44: statuses[3].statuses.push({ status: 44, description: this.translate("Car_sent_to_Poland"),                        eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') }); break;
+        case 48: statuses[3].statuses.push({ status: 48, description: this.translate("A_car_in_a_warehouse_in_Poland"),            eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') }); break;
+        case 49: statuses[3].statuses.push({ status: 49, description: this.translate("Car_sent_to_the_dealer"),                    eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') }); break;
+        case 58: statuses[4].statuses.push({ status: 58, description: this.translate("The_car_reached_the_dealer"),                eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') }); break;
+        case 60: statuses[4].statuses.push({ status: 60, description: this.translate("Sold_Car"),                                  eventCodeUpdateTimestamp: moment(details.statuses[i].eventCodeUpdateTimestamp).format('YYYY-MM-DD'), estimatedDeliveryDateTime: moment(details.statuses[i].estimatedDeliveryDateTime).format('YYYY-MM-DD') }); break;
+        default: console.log(details.statuses[i]); break;
       }
     }
     statuses.reverse();
