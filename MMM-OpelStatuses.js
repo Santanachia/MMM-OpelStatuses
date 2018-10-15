@@ -158,6 +158,8 @@ Module.register("MMM-OpelStatuses", {
       { stage: this.translate('sale'), statuses: [] },
       { stage: this.translate('post_sale'), statuses: [] }
     ];
+
+    details.statuses.sort((a, b) => (a.lastVehicleEvent > b.lastVehicleEvent) ? -1 : ((b.lastVehicleEvent > a.lastVehicleEvent) ? 1 : 0));
     
     for (let i in details.statuses) {
       switch (parseInt(details.statuses[i].lastVehicleEvent)) {
