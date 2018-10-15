@@ -34,6 +34,8 @@ module.exports = NodeHelper.create({
 
             let details = histDataRead(data.item.vehicleDetail.sono, that.path);
 
+            details.vehicle_key = payload.vehicle_key;
+
             details.make = data.item.vehicleDetail.make;
             details.modelDescription = data.item.vehicleDetail.modelDescription;
             details.modelYearSuffix = (data.item.vehicleDetail.modelYearSuffix.indexOf(data.item.vehicleDetail.year) === -1 ? data.item.vehicleDetail.year : '') + data.item.vehicleDetail.modelYearSuffix;

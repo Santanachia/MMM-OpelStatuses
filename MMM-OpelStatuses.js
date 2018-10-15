@@ -7,6 +7,8 @@ Module.register("MMM-OpelStatuses", {
 
     this.errMsg = '';
 
+    this.vehicle_key = this.config.JOBID ? this.config.JOBID : this.config.VIN;
+
     // load data
     this.load();
 
@@ -19,28 +21,29 @@ Module.register("MMM-OpelStatuses", {
   load: function(){
     var that = this;
 
-    this.sendSocketNotification('GET_DATA', { vehicle_key: that.config.JOBID ? that.config.JOBID : that.config.VIN })
+    this.sendSocketNotification('GET_DATA', { vehicle_key: that.vehicle_key })
     this.lastCHeck = new Date();
   },
   socketNotificationReceived: function (notification, payload) {
-    var that = this;
+    if (payload.vehicle_key === this.vehicle_key) {
     switch (notification) {
       case 'DATA':
-        that.loaded = true;
+        this.loaded = true;
         this.errMsg = "";
-        that.details = payload;
-        that.updateDom(that.animationSpeed);
+        this.details = payload;
+        this.updateDom(this.animationSpeed);
         break;
       case 'ERR':
         console.log('error :(', payload);
         if (payload.msg === 'The vehicle cannot be found.') {
           this.errMsg = "carNotFound";
-          that.updateDom(that.animationSpeed);
+          this.updateDom(this.animationSpeed);
         }
         break;
       default:
         console.log ('wrong socketNotification', notification, payload)
         break;
+    }
     }
   },
   html: {
