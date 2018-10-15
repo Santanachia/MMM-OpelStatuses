@@ -23,5 +23,6 @@
   "A_car_in_a_warehouse_in_Poland": "Samochód na składzie w Polsce",
   "Car_sent_to_the_dealer": "Samochód wysłany do dealera",
   "The_car_reached_the_dealer": "Samochód dojechał do dealera",
-  "Sold_Car": "Samochód sprzedany"
+  "Sold_Car": "Samochód sprzedany",
+  "carNotFound": "Nie odnaleziono samochodu."
 }

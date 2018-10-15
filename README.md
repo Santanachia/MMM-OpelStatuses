@@ -41,4 +41,4 @@ You may want to set the following options in the config section as well:
 | `VIN` | The of your car.<br><br>This (or JOBID) is **REQUIRED**. | 
 
 ### Known Issues
-No info message, when resmons was "The vehicle cannot be found."
+The "The vehicle cannot be found." error message can appear even if the car is manufactured.

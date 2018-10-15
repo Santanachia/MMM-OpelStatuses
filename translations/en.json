@@ -28,5 +28,7 @@
   "A_car_in_a_warehouse_in_Poland": "A car in a warehouse in Poland",
   "Car_sent_to_the_dealer": "Car sent to the dealer",
   "The_car_reached_the_dealer": "The car reached the dealer",
-  "Sold_Car": "Sold Car"
+  "Sold_Car": "Sold Car",
+  //errors:
+  "carNotFound": "The vehicle cannot be found."
 }

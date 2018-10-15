@@ -27,11 +27,16 @@ Module.register("MMM-OpelStatuses", {
     switch (notification) {
       case 'DATA':
         that.loaded = true;
+        this.errMsg = "";
         that.details = payload;
         that.updateDom(that.animationSpeed);
         break;
       case 'ERR':
         console.log('error :(', payload);
+        if (payload.msg === 'The vehicle cannot be found.') {
+          this.errMsg = "carNotFound";
+          that.updateDom(that.animationSpeed);
+        }
         break;
       default:
         console.log ('wrong socketNotification', notification, payload)
@@ -57,12 +62,12 @@ Module.register("MMM-OpelStatuses", {
   getDom: function () {
     var that = this;
     var wrapper = document.createElement('div');
-    if (!this.config.JOBID && !!this.config.VIN) {
-      wrapper.innerHTML = this.translate('NoID') + this.name + '.';
+    if (!this.config.JOBID && !this.config.VIN) {
+      wrapper.innerHTML = this.translate('NoID') + ' ' + this.name + '.';
       wrapper.className = 'dimmed light small';
     }
     else if (!this.loaded) {
-      wrapper.innerHTML = this.translate('Loading');
+      wrapper.innerHTML = this.translate('Loading') + '<br />' + this.translate(this.errMsg);
       wrapper.className = 'dimmed light small';
     }
     else {
@@ -104,7 +109,7 @@ Module.register("MMM-OpelStatuses", {
       wrapper.innerHTML =
         '<span class="xsmall">' + this.details.make + ' ' + this.details.modelDescription + ' ' + this.details.modelYearSuffix + ' ' + this.details.colour + '</span>'
         + this.html.table.format(
-          this.translate('Last check: ') + moment().format('YYYY-MM-DD H:mm') + this.errMsg,
+          this.translate('Last check: ') + moment().format('YYYY-MM-DD H:mm') + this.translate(this.errMsg),
           this.html.thead.format(
             this.translate('Stage'),
             this.translate('Status'),
