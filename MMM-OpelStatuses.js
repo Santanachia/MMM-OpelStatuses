@@ -144,7 +144,8 @@ Module.register("MMM-OpelStatuses", {
   getTranslations: function() {
     return {
       en: 'translations/en.json',
-      pl: 'translations/pl.json'
+      pl: 'translations/pl.json',
+      sv: 'translations/sv.json',
     }
   },
   fillStages: function (details) {
