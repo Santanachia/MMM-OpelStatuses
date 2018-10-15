@@ -74,6 +74,23 @@ Module.register("MMM-OpelStatuses", {
       var rows = [];
       var stages = that.fillStages(that.details);
 
+      if (that.details.registrationDate) {
+        stages[0].statuses.push({
+          status: '',
+          description: that.translate('registrationDate') + ' ' + that.details.registrationMark,
+          eventCodeUpdateTimestamp: moment(that.details.registrationDate).format('YYYY-MM-DD'),
+          estimatedDeliveryDateTime: ''
+        });
+      }
+      if (that.details.dateFirstRegistered && that.details.dateFirstRegistered !== that.details.registrationDate) {
+        stages[0].statuses.push({
+          status: '',
+          description: that.translate('dateFirstRegistered'),
+          eventCodeUpdateTimestamp: moment(that.details.dateFirstRegistered).format('YYYY-MM-DD'),
+          estimatedDeliveryDateTime: ''
+        });
+      }
+
       for (let i in stages) {
         for (let j in stages[i].statuses) {
           if (0 == j && stages[i].statuses.length > 1) {
@@ -134,7 +151,8 @@ Module.register("MMM-OpelStatuses", {
       { stage: this.translate('set_prod'), statuses: [] },
       { stage: this.translate('production'), statuses: [] },
       { stage: this.translate('transport'), statuses: [] },
-      { stage: this.translate('sale'), statuses: [] }
+      { stage: this.translate('sale'), statuses: [] },
+      { stage: this.translate('post_sale'), statuses: [] }
     ];
     
     for (let i in details.statuses) {

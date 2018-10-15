@@ -12,6 +12,7 @@
   "production": "Production",
   "transport": "Transport",
   "sale": "Sale",
+  "post_sale": "Post sale",
   //statuses:
   "Acceptance_of_the_order": "Acceptance of the order",
   "Order_processing": "Order processing",
@@ -29,6 +30,8 @@
   "Car_sent_to_the_dealer": "Car sent to the dealer",
   "The_car_reached_the_dealer": "The car reached the dealer",
   "Sold_Car": "Sold Car",
+  "registrationDate": "Registration date",
+  "dateFirstRegistered": "First registration date",
   //errors:
   "carNotFound": "The vehicle cannot be found."
 }

@@ -36,9 +36,12 @@ module.exports = NodeHelper.create({
 
             details.make = data.item.vehicleDetail.make;
             details.modelDescription = data.item.vehicleDetail.modelDescription;
-            details.modelYearSuffix = data.item.vehicleDetail.modelYearSuffix;
+            details.modelYearSuffix = (data.item.vehicleDetail.modelYearSuffix.indexOf(data.item.vehicleDetail.year) === -1 ? data.item.vehicleDetail.year : '') + data.item.vehicleDetail.modelYearSuffix;
             details.vin = data.item.vehicleDetail.vin;
             details.colour = data.item.vehicleDetail.colour;
+            details.registrationDate = data.item.registrationDate;
+            details.dateFirstRegistered = data.item.vehicleDetail.dateFirstRegistered;
+            details.registrationMark = data.item.registrationMark;
 
             if (!details.statuses.length || !details.statuses.find(x => x.lastVehicleEvent == data.item.vehicleDetail.lastVehicleEvent)) {
               details.statuses.push({
