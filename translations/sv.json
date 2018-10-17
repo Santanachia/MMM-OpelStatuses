@@ -1,4 +1,37 @@
 {
   "NoID": "Fyll i din config fil med JOBID eller VIN",
   "Loading": "Laddar status ..."
+    //table header:
+  "Stage": "Stadje",
+  "Status": "Status",
+  "st_date_change": "status<br />ändrat datum",
+  "de_date_forecast": "Beräknat<br />leverans datum",
+  //stages:
+  "ordering": "Beställer",
+  "set_prod": "Förbereder tillverkning",
+  "production": "Tillverknig",
+  "transport": "Transport",
+  "sale": "Försäljning",
+  "post_sale": "Efter försäljning",
+  //statuses:
+  "Acceptance_of_the_order": "Godkänner beställningen",
+  "Order_processing": "Beställningen är i en process",
+  "Setting_orders_for_production": "Förbereder beställningen för tillverkning",
+  "Waiting_for_release_for_production": "Väntar på release för produktion",
+  "Release_for_production": "Release för produktion",
+  "Production_acceptance_by_the_factory": "Produktionen accepteras av fabriken",
+  "Car_on_the_production_line": "Bilen är på kö för tillverkning",
+  "Car_made": "Bilen är tillverkad",
+  "Car_handed_over_for_sale": "Bilen är överlämpad för att säljas",
+  "The_car_left_the_factory_bays": "Bilen har lämnat fabriken",
+  "Car_in_the_central_distribution_warehouse": "Bilen är i det centrala distributionslageret",
+  "Car_sent_to_Poland": "Bilen är skickad till Polen",
+  "A_car_in_a_warehouse_in_Poland": "Bilen är på ett lager i Polen",
+  "Car_sent_to_the_dealer": "Bilen är skickad till försäljaren",
+  "The_car_reached_the_dealer": "Bilen har nått försäljaren",
+  "Sold_Car": "Såld bil",
+  "registrationDate": "Regristrerings datum",
+  "dateFirstRegistered": "Första datum regristrerad",
+  //errors:
+  "carNotFound": "Fordonet kan ej hittas."
 }
