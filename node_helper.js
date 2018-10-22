@@ -12,11 +12,11 @@ module.exports = NodeHelper.create({
         request('https://my.opel.pl/api/opel/pl/pl/search/vehicle/lookup_vehicle.do?vehicle_key=' + payload.vehicle_key, function (error, response, body) {
 
           if (error) {
-            return that.sendSocketNotification('ERR', { type: 'request error', msg: error });
+            return that.sendSocketNotification('ERR', { type: 'request error', msg: error, vehicle_key: payload.vehicle_key });
           }
 
           if (response.statusCode != 200) {
-            return that.sendSocketNotification('ERR', { type: 'request statusCode', msg: response && response.statusCode });
+            return that.sendSocketNotification('ERR', { type: 'request statusCode', msg: response && response.statusCode, vehicle_key: payload.vehicle_key });
           }
 
           if (!error & response.statusCode == 200) {
@@ -25,11 +25,11 @@ module.exports = NodeHelper.create({
             try {
               data = JSON.parse(body);
             } catch (e) {
-              return that.sendSocketNotification('ERR', { type: 'request error', msg: error });
+              return that.sendSocketNotification('ERR', { type: 'request error', msg: error, vehicle_key: payload.vehicle_key });
             }
 
             if (data.errorMsg) {
-              return that.sendSocketNotification('ERR', { type: 'request error', msg: data.errorMsg });
+              return that.sendSocketNotification('ERR', { type: 'request error', msg: data.errorMsg, vehicle_key: payload.vehicle_key });
             }
 
             let details = histDataRead(data.item.vehicleDetail.sono, that.path);

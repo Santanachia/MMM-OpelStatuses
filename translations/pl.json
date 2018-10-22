@@ -1,6 +1,6 @@
 {
   "NoID": "Wpisz JOBID lub VIN w pliku konfiguracyjnym",
-  "Loading": "Wczytywanie statusu ...",
+  "Loading": "Wczytywanie statusu &hellip;",
   "Stage": "Etap",
   "st_date_change": "data zmiany<br />statusu",
   "de_date_forecast": "prognozowana<br />data dostawy",

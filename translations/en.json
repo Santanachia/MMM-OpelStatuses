@@ -1,6 +1,6 @@
 {
   "NoID": "Fill config with JOBID or VIN",
-  "Loading": "Loading status ...",
+  "Loading": "Loading status &hellip;",
   //table header:
   "Stage": "Stage",
   "Status": "Status",

@@ -15,7 +15,7 @@ Module.register("MMM-OpelStatuses", {
     // schedule refresh
     setInterval(
       this.load.bind(this),
-      15 * 60 * 1000
+      (10 + Math.random() * 5) * 60 * 1000
     );
   },
   load: function(){
@@ -25,25 +25,28 @@ Module.register("MMM-OpelStatuses", {
     this.lastCHeck = new Date();
   },
   socketNotificationReceived: function (notification, payload) {
-    if (payload.vehicle_key === this.vehicle_key) {
     switch (notification) {
       case 'DATA':
-        this.loaded = true;
-        this.errMsg = "";
-        this.details = payload;
-        this.updateDom(this.animationSpeed);
+        if (payload.vehicle_key === this.vehicle_key) {
+          this.loaded = true;
+          this.errMsg = "";
+          this.details = payload;
+          this.updateDom(this.animationSpeed);
+        }
         break;
       case 'ERR':
-        console.log('error :(', payload);
-        if (payload.msg === 'The vehicle cannot be found.') {
-          this.errMsg = "carNotFound";
-          this.updateDom(this.animationSpeed);
+        if (!payload.vehicle_key || payload.vehicle_key === this.vehicle_key) {
+          console.log('error :(', payload);
+          if (payload.msg == 'The vehicle cannot be found.') {
+            this.errMsg = "carNotFound";
+            setTimeout(this.load.bind(this), (3 + Math.random() * 2) * 1000)
+            this.updateDom(this.animationSpeed);
+          }
         }
         break;
       default:
         console.log ('wrong socketNotification', notification, payload)
         break;
-    }
     }
   },
   html: {
@@ -69,8 +72,12 @@ Module.register("MMM-OpelStatuses", {
       wrapper.innerHTML = this.translate('NoID') + ' ' + this.name + '.';
       wrapper.className = 'dimmed light small';
     }
+    else if (this.errMsg && !this.loaded) {
+      wrapper.innerHTML = this.translate(this.errMsg);
+      wrapper.className = 'dimmed light small';
+    }
     else if (!this.loaded) {
-      wrapper.innerHTML = this.translate('Loading') + '<br />' + this.translate(this.errMsg);
+      wrapper.innerHTML = this.translate('Loading');
       wrapper.className = 'dimmed light small';
     }
     else {
@@ -129,7 +136,7 @@ Module.register("MMM-OpelStatuses", {
       wrapper.innerHTML =
         '<span class="xsmall">' + this.details.make + ' ' + this.details.modelDescription + ' ' + this.details.modelYearSuffix + ' ' + this.details.colour + '</span>'
         + this.html.table.format(
-          this.translate('lastCheck') + moment().format('YYYY-MM-DD H:mm') + this.translate(this.errMsg),
+          this.translate('lastCheck') + moment().format('YYYY-MM-DD H:mm') + (this.errMsg ? '<br />' + this.translate(this.errMsg) : ''),
           this.html.thead.format(
             this.translate('Stage'),
             this.translate('Status'),
