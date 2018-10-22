@@ -27,5 +27,6 @@
   "Sold_Car": "Samochód sprzedany",
   "registrationDate": "Data rejestracji",
   "dateFirstRegistered": "Data pierwszej rejestracji",
-  "carNotFound": "Nie odnaleziono samochodu."
+  "carNotFound": "Nie odnaleziono samochodu.",
+  "lastCheck": "Ostatnie sprawdzenie: "
 }

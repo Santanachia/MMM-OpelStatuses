@@ -129,7 +129,7 @@ Module.register("MMM-OpelStatuses", {
       wrapper.innerHTML =
         '<span class="xsmall">' + this.details.make + ' ' + this.details.modelDescription + ' ' + this.details.modelYearSuffix + ' ' + this.details.colour + '</span>'
         + this.html.table.format(
-          this.translate('Last check: ') + moment().format('YYYY-MM-DD H:mm') + this.translate(this.errMsg),
+          this.translate('lastCheck') + moment().format('YYYY-MM-DD H:mm') + this.translate(this.errMsg),
           this.html.thead.format(
             this.translate('Stage'),
             this.translate('Status'),

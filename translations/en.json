@@ -33,5 +33,6 @@
   "registrationDate": "Registration date",
   "dateFirstRegistered": "First registration date",
   //errors:
-  "carNotFound": "The vehicle cannot be found."
+  "carNotFound": "The vehicle cannot be found.",
+  "lastCheck": "Last check: "
 }
